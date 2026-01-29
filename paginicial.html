@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Federal Force #10466</title>
+	<link rel="stylesheet" href="css/paginicial.css">
+</head>
+<body>
+	<!-- Header/Nav: logo image only in menu -->
+	<header class="site-header" role="banner">
+		<div class="container header-inner">
+			<a class="logo" href="#">
+				<img src="file:///C:/Users/feder/OneDrive/Imagens/Screenshots/imgfederal.png" alt="Federal Force logo" class="logo-img">
+				<span class="logo-tag">#10466</span>
+			</a>
+			<nav class="main-nav" role="navigation" aria-label="Navegação principal">
+				<a href="#" class="nav-link" data-target="conquistas">Conquistas</a>
+				<a href="#" class="nav-link" data-target="sobre-nos">Sobre</a>
+				<a href="#" class="nav-link" data-target="projeto-social">Projeto Social</a>
+				<a href="#" class="nav-link" data-target="patrocinadores">Patrocinadores</a>
+				<a href="#" class="nav-link" data-target="contato">Contato</a>
+			</nav>
+		</div>
+	</header>
+
+	<!-- Hero: remove hero-media image so logo appears only in menu -->
+	<main>
+		<section class="hero" aria-labelledby="hero-title">
+			<div class="container hero-inner">
+				<div class="hero-text">
+					<h1 id="hero-title">Federal Force</h1>
+					<p class="lead">Equipe 10466 — Inovação, competição e impacto social dentro da FIRST.</p>
+				</div>
+				<div class="hero-media" aria-hidden="true">
+					<!-- imagem removida: logo ficará apenas no menu -->
+				</div>
+			</div>
+		</section>
+
+		<!-- sections area: todas as sections na mesma página, inicialmente ocultas -->
+		<section id="sections-area" class="sections-area container" aria-live="polite">
+			<article id="conquistas" class="section card" role="region" aria-labelledby="conquistas-title" hidden>
+				<h2 id="conquistas-title">Conquistas</h2>
+				<p class="summary">Prêmios, classificações e destaques da Federal Force.</p>
+				<div class="details" hidden>
+					<ul>
+						<li>2023 — 1º lugar regional (exemplo)</li>
+						<li>2022 — Melhor apresentação de projeto</li>
+						<li>Participações em eventos nacionais e internacionais</li>
+					</ul>
+				</div>
+			</article>
+
+			<article id="sobre-nos" class="section card" role="region" aria-labelledby="sobre-nos-title" hidden>
+				<h2 id="sobre-nos-title">Sobre Nós</h2>
+				<p class="summary">História, missão e valores da Federal Force.</p>
+				<div class="details" hidden>
+					<p>Descrição breve sobre a equipe, membros e objetivos.</p>
+				</div>
+			</article>
+
+			<article id="projeto-social" class="section card" role="region" aria-labelledby="projeto-social-title" hidden>
+				<h2 id="projeto-social-title">Projeto Social</h2>
+				<p class="summary">Descrição do projeto social e formas de participação.</p>
+				<div class="details" hidden>
+					<p>Oficinas, metas e parceiros do projeto social.</p>
+				</div>
+			</article>
+
+			<article id="patrocinadores" class="section card" role="region" aria-labelledby="patrocinadores-title" hidden>
+				<h2 id="patrocinadores-title">Patrocinadores</h2>
+				<p class="summary">Agradecimento aos apoiadores e logos.</p>
+				<div class="details" hidden>
+					<p>Lista de patrocinadores e links para logos.</p>
+				</div>
+			</article>
+
+			<article id="contato" class="section card" role="region" aria-labelledby="contato-title" hidden>
+				<h2 id="contato-title">Contato</h2>
+				<p class="summary">Fale conosco via redes ou formulário.</p>
+				<div class="details" hidden>
+					<form class="contact-form" aria-label="Formulário de contato">
+						<label for="nome">Nome</label>
+						<input id="nome" name="nome" type="text" placeholder="Seu nome">
+						<label for="email">Email</label>
+						<input id="email" name="email" type="email" placeholder="seu@exemplo.com">
+						<label for="mensagem">Mensagem</label>
+						<textarea id="mensagem" name="mensagem" rows="4" placeholder="Escreva sua mensagem..."></textarea>
+						<button type="submit">Enviar</button>
+					</form>
+				</div>
+			</article>
+		</section>
+
+		<!-- Modal para abrir sections sobre a mesma página -->
+		<div id="section-modal" class="section-modal" aria-hidden="true" hidden>
+			<div class="modal-backdrop" data-close="true"></div>
+			<aside class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+				<button class="modal-close" aria-label="Fechar">×</button>
+				<h2 id="modal-title" class="modal-title"></h2>
+				<div class="modal-body" id="modal-body"></div>
+			</aside>
+		</div>
+	</main>
+
+	<script src="js/paginicial.js"></script>
+</body>
+</html>
