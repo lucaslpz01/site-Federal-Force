@@ -2,7 +2,7 @@
 :root{
     --navy:#0b3d91;
     --navy-deep:#092a63;
-    --gold:#f2b705;
+    --white:#ffffff;
     --white:#ffffff;
     --card-bg:#ffffff;
     --muted:#6b7280;
@@ -145,6 +145,68 @@ a{color:inherit}
     box-shadow:0 12px 36px rgba(9,42,99,0.08);
 }
 
+/* ================= Carrossel (lado direito, chamativo e responsivo) ================= */
+.carousel{
+    position:relative;
+    width:100%;
+    max-width:520px;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 28px 60px rgba(3,19,59,0.18);
+    background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(11,61,145,0.02));
+}
+.carousel-track{
+    display:flex;
+    transition:transform .6s cubic-bezier(.22,.9,.28,1);
+    will-change:transform;
+}
+.carousel-slide{
+    min-width:100%;
+    position:relative;
+}
+.carousel-slide img{
+    display:block;
+    width:100%;
+    height:320px;
+    object-fit:cover;
+    vertical-align:middle;
+    filter:contrast(1.02) saturate(1.06);
+}
+.carousel-caption{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding:1rem 1.15rem;
+    background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(2,6,23,0.45));
+    color:#fff;
+    font-weight:700;
+    font-size:1rem;
+    text-shadow:0 6px 18px rgba(3,19,59,0.6);
+}
+.carousel-controls-hidden { display:none !important; }
+
+/* esconder os dots para visual minimalista */
+.carousel-dots{ display:none !important; }
+.carousel-dots{
+    position:absolute;
+    left:50%; transform:translateX(-50%);
+    bottom:12px; display:flex; gap:.5rem; z-index:20;
+}
+.carousel-dots button{
+    width:10px; height:10px; border-radius:50%; border:none; background:rgba(255,255,255,0.55); cursor:pointer; padding:0;
+}
+.carousel-dots button[aria-selected="true"]{ background:var(--gold); box-shadow:0 6px 18px rgba(242,183,5,0.18) }
+
+/* mobile adjustments */
+@media (max-width:980px){
+    .carousel{ max-width:92%; }
+    .carousel-slide img{ height:260px }
+}
+@media (max-width:560px){
+    .carousel-slide img{ height:180px }
+    .carousel-caption{ font-size:.92rem; padding:.8rem }
+    .carousel-btn{ width:36px; height:36px; font-size:1.1rem }
+}
+
 /* CTA (botão) */
 .cta, .next-btn{
     display:inline-block;
@@ -247,6 +309,56 @@ a[role="button"]{ cursor:pointer }
 .details{ display:block; margin-top:1rem; color:var(--muted); }
 .details[hidden]{ display:none; }
 
+/* Ajuste específico para a box 'Conquistas' — evita corte das imagens */
+#conquistas{
+    min-height:260px; /* maior que o padrão para acomodar imagens */
+}
+#conquistas .details img,
+#conquistas img{
+    width:100%;
+    height:auto;
+    max-height:360px;
+    object-fit:contain; /* preserva a imagem sem cortes */
+    border-radius:8px;
+    display:block;
+    box-shadow:0 8px 20px rgba(3,19,59,0.06);
+}
+@media (max-width:980px){
+    #conquistas{ min-height:220px }
+    #conquistas .details img{ max-height:280px }
+}
+@media (max-width:560px){
+    #conquistas{ min-height:200px }
+    #conquistas .details img{ max-height:220px }
+}
+
+/* Override específico: quando as imagens de conquistas estiverem dentro da galeria, evitar cortes
+   e remover altura fixa herdada de .project-gallery img */
+#conquistas .project-gallery{ align-items:flex-start }
+#conquistas .project-gallery img{
+    flex:1 1 calc(33.333% - .6rem);
+    height:auto !important;
+    max-height:420px;
+    object-fit:contain !important;
+}
+@media (max-width:720px){
+    #conquistas .project-gallery img{ flex-basis:48%; max-height:320px }
+}
+@media (max-width:420px){
+    #conquistas .project-gallery img{ flex-basis:100%; max-height:360px }
+}
+
+/* Galeria responsiva dentro da box de Projeto Social */
+.project-gallery{ display:flex; gap:.6rem; margin-top:1rem; align-items:center; flex-wrap:wrap }
+.project-gallery img{ flex:1 1 calc(33.333% - .6rem); width:100%; max-width:100%; height:160px; object-fit:cover; border-radius:8px; box-shadow:0 8px 26px rgba(3,19,59,0.08); display:block }
+
+@media (max-width:720px){
+    .project-gallery img{ flex-basis:48%; height:140px }
+}
+@media (max-width:420px){
+    .project-gallery img{ flex-basis:100%; height:180px }
+}
+
 /* quando a seção estiver expandida */
 .section.expanded{ box-shadow:0 24px 48px rgba(9,42,99,0.12); transform:translateY(-6px); }
 
@@ -307,4 +419,25 @@ body.modal-open{ overflow:hidden }
 @media (max-width:720px){
     .modal-content{ padding:1rem; width:94%; max-height:92vh; border-radius:10px }
     .modal-title{ font-size:1.1rem }
+}
+
+/* ================= Footer ================= */
+.site-footer{
+    background: linear-gradient(180deg, var(--navy), #0a2d6b);
+    color: #fff;
+    padding:1.25rem 0;
+    border-top:1px solid rgba(255,255,255,0.04);
+}
+.footer-inner{ display:flex; align-items:center; justify-content:space-between; gap:1rem }
+.logo-footer{ display:inline-flex; align-items:center; gap:.6rem; text-decoration:none; color:var(--gold); font-weight:700 }
+.footer-logo{ width:56px; height:56px; object-fit:contain; border-radius:8px; box-shadow:0 8px 22px rgba(0,0,0,0.14); background:rgba(255,255,255,0.03) }
+.footer-copy{ margin:0 0 0 .5rem; color: rgba(255,255,255,0.88); font-size:.95rem }
+.footer-right{ display:flex; align-items:center; gap:1rem }
+.social-links{ display:flex; gap:.6rem; align-items:center }
+.social-link{ display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:8px; background: rgba(255,255,255,0.06); text-decoration:none }
+.social-link svg{ display:block }
+
+@media (max-width:720px){
+    .footer-inner{ flex-direction:column; align-items:center; text-align:center }
+    .footer-copy{ margin-top:.5rem }
 }

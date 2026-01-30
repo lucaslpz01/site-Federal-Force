@@ -77,4 +77,84 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.addEventListener('keydown', (e) => {
 		if (e.key === 'Escape' && !modal.hidden) closeModal();
 	});
+
+	// ======= Carrossel: inicialização, autoplay, controles e acessibilidade =======
+	(function initCarousel(){
+		const carousel = document.querySelector('.carousel');
+		if (!carousel) return;
+		const track = carousel.querySelector('.carousel-track');
+		const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+		const prev = carousel.querySelector('.carousel-btn.prev');
+		const next = carousel.querySelector('.carousel-btn.next');
+		// indicators removed for minimal automatic carousel
+		let current = 0;
+		const total = slides.length;
+		const INTERVAL = 5000;
+		let timer = null;
+
+		// no dots are created for the minimal UI
+
+		function update() {
+			track.style.transform = `translateX(-${current * 100}%)`;
+		}
+
+		function goTo(index) {
+			current = ((index % total) + total) % total;
+			update();
+		}
+
+		function nextSlide() { goTo(current + 1); }
+		function prevSlide() { goTo(current - 1); }
+
+		function start() { if (timer) clearInterval(timer); timer = setInterval(nextSlide, INTERVAL); }
+		function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+		// prev/next buttons removed from markup; controls via dots/teclado remain
+
+		// teclado: setas navegam quando foco no carrossel ou em qualquer lugar da página
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'ArrowLeft') { prevSlide(); start(); }
+			if (e.key === 'ArrowRight') { nextSlide(); start(); }
+		});
+
+		// touch/swipe básico
+		let startX = 0, dist = 0;
+		carousel.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+		carousel.addEventListener('touchmove', (e) => { dist = e.touches[0].clientX - startX; }, { passive: true });
+		carousel.addEventListener('touchend', () => { if (dist > 50) prevSlide(); else if (dist < -50) nextSlide(); dist = 0; start(); });
+
+		// iniciar
+		update();
+		start();
+	})();
+
+	// ======= Galeria: carregar imagens da pasta `img/` com fallback (.jpg -> .svg) =======
+	(function loadProjectGallery(){
+		const imgs = Array.from(document.querySelectorAll('.project-gallery img[data-base]'));
+		if (!imgs.length) return;
+		imgs.forEach(img => {
+			const base = img.getAttribute('data-base');
+			if (!base) return;
+			// tentar jpg primeiro
+			img.src = `img/${base}.jpg`;
+			img.onerror = () => {
+				// se jpg não existir, tentar png
+				if (!img.dataset._triedPng) {
+					img.dataset._triedPng = '1';
+					img.src = `img/${base}.png`;
+					return;
+				}
+				// se png também falhar, usar svg fallback
+				if (!img.dataset._triedSvg) {
+					img.dataset._triedSvg = '1';
+					img.src = `img/${base}.svg`;
+					return;
+				}
+				// último recurso: ocultar elemento
+				img.style.display = 'none';
+			};
+			// garantir que imagens se ajustem corretamente (caso já tenham sido carregadas do cache)
+			img.onload = () => { img.style.display = 'block'; };
+		});
+	})();
 });
