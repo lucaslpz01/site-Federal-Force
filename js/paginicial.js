@@ -129,8 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	})();
 
 	// ======= Galeria: carregar imagens da pasta `img/` com fallback (.jpg -> .svg) =======
-	(function loadProjectGallery(){
-		const imgs = Array.from(document.querySelectorAll('.project-gallery img[data-base]'));
+	(function loadfotosection(){
+		const imgs = Array.from(document.querySelectorAll('.fotos-sections img[data-base]'));
 		if (!imgs.length) return;
 		imgs.forEach(img => {
 			const base = img.getAttribute('data-base');

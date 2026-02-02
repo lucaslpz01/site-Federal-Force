@@ -10,7 +10,7 @@
 }
 
 /* ================= Reset / base ================= */
-*{box-sizing:border-box}
+
 html,body{height:100%;margin:0;font-family:Segoe UI, Roboto, Arial, sans-serif;background:#f6f8fb;color:var(--navy-deep);-webkit-font-smoothing:antialiased}
 a{color:inherit}
 
@@ -63,12 +63,6 @@ a{color:inherit}
     background:rgba(255,255,255,0.03);
 }
 
-/* Nav links */
-.main-nav{
-    display:flex;
-    align-items:center;
-    gap:1.15rem;
-}
 .main-nav a{
     padding:.6rem 1rem; /* área clicável maior */
     color: #ffffff;
@@ -84,20 +78,7 @@ a{color:inherit}
     color:var(--navy);
 }
 
-/* destaque do item de menu ativo */
-.main-nav .nav-link.active{
-    background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    color: #fff;
-    box-shadow: none;
-}
 
-/* Small screens: stack nav into a simple wrap */
-@media (max-width:720px){
-    .main-nav{ gap:.6rem; flex-wrap:wrap; justify-content:flex-end }
-    .logo{ font-size:1.2rem }
-    .logo-img{ width:56px; height:56px }
-    .main-nav a{ font-size:.98rem; padding:.45rem .65rem }
-}
 
 .hero{
     padding-top:calc(var(--header-height) + 2rem);
@@ -145,7 +126,7 @@ a{color:inherit}
     box-shadow:0 12px 36px rgba(9,42,99,0.08);
 }
 
-/* ================= Carrossel (lado direito, chamativo e responsivo) ================= */
+/* Carossel de imagens da pag */
 .carousel{
     position:relative;
     width:100%;
@@ -169,7 +150,6 @@ a{color:inherit}
     width:100%;
     height:320px;
     object-fit:cover;
-    vertical-align:middle;
     filter:contrast(1.02) saturate(1.06);
 }
 .carousel-caption{
@@ -207,50 +187,20 @@ a{color:inherit}
     .carousel-btn{ width:36px; height:36px; font-size:1.1rem }
 }
 
-/* CTA (botão) */
-.cta, .next-btn{
-    display:inline-block;
-    margin-top:1rem;
-    padding:.85rem 1.25rem;
-    background:var(--gold);
-    color:var(--navy-deep);
-    font-weight:700;
-    border-radius:10px;
-    text-decoration:none;
-    border:none;
-    box-shadow:0 8px 20px rgba(18,58,107,0.08);
-    transition:transform .16s ease, box-shadow .16s ease, opacity .12s ease;
-}
-.cta:hover{ transform:translateY(-3px); opacity:0.98 }
 
 
-.sections-grid{
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap:1.25rem;
-    padding:2.5rem 0;
+.card{
+    border-left:6px solid var(--white)
 }
 
-/* Base das boxes/sections */
-.section{
-    padding:1.25rem;
-    border-radius:10px;
-    background:var(--card-bg);
-    box-shadow:0 6px 18px rgba(9,42,99,0.06);
-    transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-    min-height:140px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    cursor:pointer;
+.section h2{
+    margin:0 0 .5rem; 
+    color:var(--muted)
 }
-.card{ border-left:6px solid var(--gold) }
-.section h2{ margin:0 0 .5rem; color:var(--navy) }
-.section p{ margin:0; color:var(--muted) }
 
 .section:hover{
     transform:translateY(-8px);
-    box-shadow:0 20px 40px rgba(9,42,99,0.12);
+    box-shadow:0 40px 40px rgba(9,42,99,0.12);
     border-left-color:var(--navy);
 }
 
@@ -288,7 +238,7 @@ a[role="button"]{ cursor:pointer }
     display:block; /* keep block but controlled by [hidden] attribute */
     transition:transform .22s ease, box-shadow .22s ease, opacity .18s ease, max-height .28s ease;
     opacity:1;
-    max-height:2000px;
+    max-height:200px;
     overflow:hidden;
 }
 
@@ -306,57 +256,51 @@ a[role="button"]{ cursor:pointer }
 .section.visible{ transform:translateY(0); }
 
 /* details collapsed/expanded */
-.details{ display:block; margin-top:1rem; color:var(--muted); }
-.details[hidden]{ display:none; }
-
-/* Ajuste específico para a box 'Conquistas' — evita corte das imagens */
-#conquistas{
-    min-height:260px; /* maior que o padrão para acomodar imagens */
-}
-#conquistas .details img,
-#conquistas img{
-    width:100%;
-    height:auto;
-    max-height:360px;
-    object-fit:contain; /* preserva a imagem sem cortes */
-    border-radius:8px;
+.details{
     display:block;
-    box-shadow:0 8px 20px rgba(3,19,59,0.06);
-}
-@media (max-width:980px){
-    #conquistas{ min-height:220px }
-    #conquistas .details img{ max-height:280px }
-}
-@media (max-width:560px){
-    #conquistas{ min-height:200px }
-    #conquistas .details img{ max-height:220px }
+    margin-top:1rem;
+    color:var(--muted);
 }
 
-/* Override específico: quando as imagens de conquistas estiverem dentro da galeria, evitar cortes
-   e remover altura fixa herdada de .project-gallery img */
-#conquistas .project-gallery{ align-items:flex-start }
-#conquistas .project-gallery img{
-    flex:1 1 calc(33.333% - .6rem);
-    height:auto !important;
-    max-height:420px;
-    object-fit:contain !important;
+.details[hidden]{
+    display:none;
 }
-@media (max-width:720px){
-    #conquistas .project-gallery img{ flex-basis:48%; max-height:320px }
+
+
+@media (max-width:980px){
+    #conquistas{ min-height:270px }
+    #conquistas .details img{ max-height:300px }
 }
-@media (max-width:420px){
-    #conquistas .project-gallery img{ flex-basis:100%; max-height:360px }
-}
+
 
 /* Galeria responsiva dentro da box de Projeto Social */
-.project-gallery{ display:flex; gap:.6rem; margin-top:1rem; align-items:center; flex-wrap:wrap }
-.project-gallery img{ flex:1 1 calc(33.333% - .6rem); width:100%; max-width:100%; height:160px; object-fit:cover; border-radius:8px; box-shadow:0 8px 26px rgba(3,19,59,0.08); display:block }
-
-@media (max-width:720px){
-    .project-gallery img{ flex-basis:48%; height:140px }
+.fotos-section{
+    display:flex;
+    gap:3rem;
+    margin-top:1rem;
+    align-items:center;
+    flex-wrap:wrap
 }
-@media (max-width:420px){
-    .project-gallery img{ flex-basis:100%; height:180px }
+
+
+.fotos-section{
+    flex:1 1 calc(33.333% - .6rem);
+    width:200%;
+    max-width:200%;
+    width: 200px;
+    height:200px;
+    object-fit:cover;
+    border-radius:8px;
+    box-shadow:0 8px 26px rgba(3,19,59,0.08);
+    display:block
+}
+
+
+@media (max-width:320px){
+    .fotos-section{
+        flex-basis:100%;
+        height:200px
+    }
 }
 
 /* quando a seção estiver expandida */
@@ -366,9 +310,7 @@ a[role="button"]{ cursor:pointer }
 .sections-area{ padding-top:1.5rem; padding-bottom:3rem; display:block; }
 
 
-
-
-/* Modal styles (overlay + panel) */
+/* Modal com o footer */
 .section-modal{
     position:fixed;
     inset:0;
@@ -427,17 +369,4 @@ body.modal-open{ overflow:hidden }
     color: #fff;
     padding:1.25rem 0;
     border-top:1px solid rgba(255,255,255,0.04);
-}
-.footer-inner{ display:flex; align-items:center; justify-content:space-between; gap:1rem }
-.logo-footer{ display:inline-flex; align-items:center; gap:.6rem; text-decoration:none; color:var(--gold); font-weight:700 }
-.footer-logo{ width:56px; height:56px; object-fit:contain; border-radius:8px; box-shadow:0 8px 22px rgba(0,0,0,0.14); background:rgba(255,255,255,0.03) }
-.footer-copy{ margin:0 0 0 .5rem; color: rgba(255,255,255,0.88); font-size:.95rem }
-.footer-right{ display:flex; align-items:center; gap:1rem }
-.social-links{ display:flex; gap:.6rem; align-items:center }
-.social-link{ display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:8px; background: rgba(255,255,255,0.06); text-decoration:none }
-.social-link svg{ display:block }
-
-@media (max-width:720px){
-    .footer-inner{ flex-direction:column; align-items:center; text-align:center }
-    .footer-copy{ margin-top:.5rem }
 }
