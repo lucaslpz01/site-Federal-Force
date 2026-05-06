@@ -1,0 +1,622 @@
+/* ================= Paleta e variáveis ================= */
+:root{
+    --navy:#0b3d91;
+    --navy-deep:#092a63;
+    --white:#ffffff;
+    --card-bg:#ffffff;
+    --muted:#000000;
+    --header-height:100px; /* aumentado para menu ainda maior */
+
+    /* Novas variações de azul para degradê (combinar com a logo) */
+    --blue-50:  #eef6ff;
+    --blue-100: #d6ecff;
+    --blue-200: #b6dbff;
+    --blue-300: #7fbfff;
+    --blue-400: #3a8fff;
+    --blue-500: #0b61d1;
+    --blue-600: #083f9a;
+
+    /* cor já usada pela logo/ações */
+    --gold: #ffffff;
+}
+
+/* ================= Reset / base ================= */
+
+html,body{
+    height:100%;
+    margin:0;
+    font-family:Segoe UI, Roboto, Arial, sans-serif;
+    background: linear-gradient(180deg,
+        var(--blue-50) 0%,
+        var(--blue-100) 22%,
+        var(--blue-200) 45%,
+        var(--blue-300) 68%,
+        var(--blue-400) 90%);
+    color:var(--navy-deep);
+    -webkit-font-smoothing:antialiased;
+    font-weight:600; /* mais gros para texto geral */
+    letter-spacing:0.01em; /* leve ajuste para melhorar leitura com peso maior */
+}
+a{color:inherit}
+
+/* ================= Container utilitário ================= */
+.container{
+    width:100%;
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 1rem;
+}
+
+/* ================= Header / Navegação =================
+   Header fixo com fundo semitransparente; evita sobreposição adicionando padding-top no hero.
+*/
+.site-header{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:var(--header-height);
+    display:flex;
+    align-items:center;
+    background: linear-gradient(180deg, var(--navy), #0a2d6b);
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    gap:1rem;
+}
+.logo{
+    display:inline-flex;
+    align-items:center;
+    gap:0.9rem;
+    text-decoration:none;
+    color:var(--gold);
+    font-weight:800;
+    font-size:1.7rem; /* logo maior */
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.logo-img{
+    width:90px; /* imagem maior */
+    height:90px;
+    object-fit:contain;
+    border-radius:8px;
+    box-shadow:0 8px 22px rgba(0,0,0,0.14);
+    background:rgba(255,255,255,0.03);
+}
+
+.main-nav a{
+    padding:.6rem 1rem; /* área clicável maior */
+    color: #ffffff;
+    text-decoration:none;
+    font-weight:700;
+    border-radius:8px;
+    transition:background .18s ease, color .18s ease;
+    font-size:1.12rem; /* texto do menu maior */
+    background: transparent;
+}
+.main-nav a:hover{
+    background:rgba(11,61,145,0.06);
+    color:var(--navy);
+}
+
+
+
+.hero{
+    padding-top:calc(var(--header-height) + 2rem);
+    padding-bottom:3.5rem;
+    background: linear-gradient(180deg,
+        rgba(11,61,145,0.03),
+        rgba(15,89,200,0.05));
+    min-height:calc(100vh - var(--header-height));
+    display:flex;
+    align-items:center;
+}
+.hero-inner{
+    display:flex;
+    gap:2rem;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+}
+.hero-text{
+    flex:1 1 56%;
+    color:var(--navy-deep);
+    text-align:left;
+}
+.hero-text h1{
+    font-size:2.6rem;
+    margin:0 0 .6rem;
+    color:var(--navy-deep);
+    line-height:1.02;
+    font-weight:900; /* reforçar peso do título principal do hero */
+}
+.hero-text .lead{
+    margin:0 0 1rem;
+    color:var(--muted);
+    max-width:52rem;
+    font-size:1.05rem;
+}
+.hero-media{
+    flex:0 1 36%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.hero-media img{
+    max-width:420px;
+    width:100%;
+    height:auto;
+    border-radius:40px;
+    box-shadow:0 12px 36px rgba(9,42,99,0.08);
+}
+
+/* Carossel de imagens da pag */
+.carousel{
+    position:relative;
+    height: 500px; /* mantém a box do carrossel do mesmo tamanho no desktop */
+    width:600px;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 28px 60px rgba(3,19,59,0.18);
+    background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(11,61,145,0.02));
+}
+.carousel-track{
+    display:flex;
+    transition:transform .6s cubic-bezier(.22,.9,.28,1);
+    will-change:transform;
+    height:100%;/* garante que o track acompanhe a altura da .carousel */
+    align-items:stretch;/* faz com que os slides tenham a mesma altura do track */
+}
+.carousel-slide{
+    flex: 0 0 100%;/* força cada slide a ocupar 100% da largura da .carousel */
+    position:relative;
+    height:100%;/* garante que cada slide preencha verticalmente a box do carrossel */
+    box-sizing:border-box;
+    padding:0;
+    display:block;
+}
+.carousel-slide img{
+    display:block;
+    width:100%;/* imagem ocupa toda a largura da slide */
+    height:100%;/* imagem ocupa toda a altura da slide */
+    max-width:none;/* remove limites recebidos de regras globais (ex: .hero-media img) */
+    max-height:none;
+    object-fit:cover;/* mantém proporção cortando quando necessário */
+    object-position:center center;/* garante centralização do corte */
+    filter:contrast(1.02) saturate(1.06);
+    border-radius:0;/* a borda arredondada vem do contêiner .carousel */
+}
+.carousel-caption{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding:1rem 1.15rem;
+    background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(2,6,23,0.45));
+    color:#fff;
+    font-weight:700;
+    font-size:1rem;
+    text-shadow:0 6px 18px rgba(3,19,59,0.6);
+}
+.carousel-controls-hidden { display:none !important; }
+
+/* esconder os dots para visual minimalista */
+.carousel-dots{ display:none !important; }
+.carousel-dots{
+    position:absolute;
+    left:50%; transform:translateX(-50%);
+    bottom:12px; display:flex; gap:.5rem; z-index:20;
+}
+.carousel-dots button{
+    width:10px; height:10px; border-radius:50%; border:none; background:rgba(255,255,255,0.55); cursor:pointer; padding:0;
+}
+.carousel-dots button[aria-selected="true"]{ background:var(--gold); box-shadow:0 6px 18px rgba(242,183,5,0.18) }
+
+/* mobile adjustments */
+@media (max-width:980px){
+    .carousel{ max-width:92%; height:260px; } /* reduz a box inteira em telas menores */
+    /* manter a imagem preenchendo a box */
+    .carousel-track{ height:100%; }
+    .carousel-slide{ height:100%; }
+    .carousel-slide img{ height:100%; width:100%; object-fit:cover; object-position:center center; }
+}
+@media (max-width:600px){
+    .carousel{ height:180px; } /* caixa ainda menor em celular */
+    .carousel-track{ height:100%; }
+    .carousel-slide{ height:100%; }
+    .carousel-slide img{ height:100%; width:100%; object-fit:cover; object-position:center center; }
+    .carousel-caption{ font-size:.92rem; padding:.8rem }
+    .carousel-btn{ width:36px; height:36px; font-size:1.1rem }
+}
+
+
+
+.card{
+    border-left:6px solid var(--white)
+}
+
+.section h2{
+    margin:0 0 .5rem; 
+    color:var(--muted);
+    font-weight:700;
+}
+
+.section:hover{
+    transform:translateY(-8px);
+    box-shadow:0 40px 40px rgba(9,42,99,0.12);
+    border-left-color:var(--navy);
+}
+
+/* Sponsors & contact form */
+.sponsors{ display:flex; flex-wrap:wrap; gap:1rem; align-items:center }
+.contact-form{ display:flex; flex-direction:column; gap:.6rem }
+
+/* novo: layout do patrocinador (logo + texto lado a lado) */
+.sponsor-item{
+    display:flex;
+    gap:1rem;
+    align-items:center; /* centraliza verticalmente a logo em relação ao texto */
+}
+.sponsor-logo{
+    width:250px; /* aumentado para destacar a logo da LÍDER */
+    height:auto;
+    object-fit:contain;
+    border-radius:8px;
+    flex:0 0 auto;
+}
+.sponsor-text{
+    flex:1 1 auto;
+}
+.sponsor-text p{
+    margin:0;
+    line-height:1.5;
+    color:var(--navy-deep);
+}
+
+/* responsividade: empilha em telas pequenas */
+@media (max-width:600px){
+    .sponsor-item{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+    }
+    .sponsor-logo{
+        width:120px; /* mantém menor em dispositivos móveis */
+    }
+}
+
+/* ================= Accessibility & small helpers ================= */
+.section:focus{ outline: 3px solid rgba(242,183,5,0.18); outline-offset:6px }
+a[role="button"]{ cursor:pointer }
+
+/* ================= Responsividade ================= */
+@media (max-width:980px){
+    .hero-inner{ flex-direction:column-reverse; text-align:center; align-items:center }
+    .hero-text{ width:100% }
+    .hero-media{ width:100%; margin-bottom:1rem }
+    .sections-grid{ grid-template-columns: repeat(2, 1fr) }
+    .sections-area{ padding:1rem; }
+    .section{ border-radius:10px; padding:1rem; }
+}
+@media (max-width:560px){
+    .sections-grid{ grid-template-columns: 1fr }
+    .hero-text h1{ font-size:1.6rem }
+    .hero-text .lead{ font-size:.98rem }
+    .header-inner{ padding:0 .25rem }
+    .main-nav a{ font-size:.92rem; padding:.25rem .45rem }
+}
+
+/* Seções aparecem apenas quando ativadas via menu */
+.sections-area .section{
+    display:block; /* keep block but controlled by [hidden] attribute */
+    transition:transform .22s ease, box-shadow .22s ease, opacity .18s ease, max-height .28s ease;
+    opacity:1;
+    max-height:200px;
+    overflow:hidden;
+}
+
+/* When hidden attribute is present, browser hides element; ensure graceful collapse */
+.sections-area .section[hidden]{
+    display:none;
+    opacity:0;
+    max-height:0;
+    padding:0;
+    margin:0;
+    border:0;
+}
+
+/* Visual cue for visible section */
+.section.visible{ transform:translateY(0); }
+
+/* details collapsed/expanded */
+.details{
+    display:block;
+    margin-top:1rem;
+    color:var(--muted);
+}
+
+.details[hidden]{
+    display:none;
+}
+
+
+@media (max-width:980px){
+    #conquistas{ min-height:270px }
+    #conquistas .details img{ max-height:300px }
+}
+
+
+/* Galeria responsiva dentro da box de Projeto Social */
+.fotos.sections {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.fotos.sections img {
+    width: 300px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .fotos.sections {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Celular */
+@media (max-width: 480px) {
+    .fotos.sections {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Card geral */
+#projeto-social.card {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Título */
+#projeto-social h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* Resumo */
+#projeto-social .summary {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+/* Texto detalhado */
+#projeto-social .details p {
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* Galeria */
+.project-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+/* Imagens */
+.project-gallery img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 14px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover */
+.project-gallery img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .project-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .project-gallery img {
+        height: 240px;
+    }
+}
+
+/* Celular */
+@media (max-width: 480px) {
+    #projeto-social.card {
+        padding: 18px;
+    }
+
+    #projeto-social h2 {
+        font-size: 1.6rem;
+    }
+}
+
+
+/* quando a seção estiver expandida */
+.section.expanded{ box-shadow:0 24px 48px rgba(9,42,99,0.12); transform:translateY(-6px); }
+
+/* ajuste de largura das sections-area para ficar centralizado */
+.sections-area{ padding-top:1.5rem; padding-bottom:3rem; display:block; }
+
+
+/* Modal com o footer */
+.section-modal{
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:1400;
+}
+.section-modal[hidden]{ display:none; }
+.modal-backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(3,19,59,0.6);
+    backdrop-filter: blur(4px);
+}
+.modal-content{
+    position:relative;
+    z-index:1401;
+    width:min(980px, 92%);
+    max-height:86vh;
+    overflow:auto;
+    background:linear-gradient(180deg, #ffffff, #f8fafc);
+    color:var(--navy-deep);
+    border-radius:12px;
+    padding:1.25rem 1.5rem;
+    box-shadow:0 24px 60px rgba(3,19,59,0.45);
+}
+.modal-title{ 
+    margin:0 0 .5rem; 
+    color:var(--navy); 
+    font-size:1.35rem;
+    font-weight:800;
+}
+.modal-body{ color:var(--muted); }
+
+/* Close button */
+.modal-close{
+    position:absolute;
+    top:.5rem;
+    right:.6rem;
+    background:transparent;
+    border:none;
+    font-size:1.6rem;
+    line-height:1;
+    color:var(--navy-deep);
+    cursor:pointer;
+}
+
+/* bloquear scroll quando modal aberto */
+body.modal-open{ overflow:hidden }
+
+/* Responsividade modal */
+@media (max-width:720px){
+    .modal-content{ padding:1rem; width:94%; max-height:92vh; border-radius:10px }
+    .modal-title{ font-size:1.1rem }
+}
+
+/* ================= Footer ================= */
+.site-footer{
+    background: linear-gradient(180deg, var(--blue-400), var(--blue-500));
+    color: #fff;
+    padding:1.25rem 0;
+    border-top:1px solid rgba(255,255,255,0.04);
+}
+
+/* Contact panel (form + contact info) */
+.contact-panel{
+    display:flex;
+    gap:1.25rem;
+    align-items:stretch;
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,252,255,0.95));
+    padding:1.25rem;
+    border-radius:12px;
+    box-shadow: 0 12px 30px rgba(3,19,59,0.12);
+    border: 1px solid rgba(11,61,145,0.06);
+}
+
+/* Left: form */
+.contact-form{
+    flex:1 1 60%;
+    display:flex;
+    flex-direction:column;
+    gap:.75rem;
+}
+.contact-form label{ font-size:.9rem; color:var(--muted); font-weight:600; }
+.contact-form input,
+.contact-form textarea{
+    padding:.75rem;
+    border:1px solid rgba(9,42,99,0.08);
+    border-radius:10px;
+    font-size:1rem;
+    background:transparent;
+    outline:none;
+    transition:box-shadow .12s ease, transform .08s ease;
+}
+.contact-form input:focus,
+.contact-form textarea:focus{
+    box-shadow:0 6px 18px rgba(11,61,145,0.08);
+    transform:translateY(-2px);
+    border-color:var(--blue-500);
+}
+
+/* Primary CTA */
+.btn-primary{
+    margin-top:.5rem;
+    padding:.75rem 1.05rem;
+    border:none;
+    border-radius:10px;
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+    background: linear-gradient(90deg, var(--blue-500), var(--blue-400));
+    box-shadow:0 10px 30px rgba(11,61,145,0.18);
+    transition:transform .12s ease, box-shadow .12s ease;
+}
+.btn-primary:hover{ transform:translateY(-3px); box-shadow:0 18px 40px rgba(11,61,145,0.2); }
+
+/* Right: contact info */
+.contact-info{
+    flex:0 0 36%;
+    display:flex;
+    flex-direction:column;
+    gap:.75rem;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:0.5rem;
+}
+.contact-brand{ display:flex; gap:.75rem; align-items:center; justify-content:center; }
+.contact-logo{ width:78px; height:auto; border-radius:10px; box-shadow:0 8px 20px rgba(3,19,59,0.08); }
+.contact-tag{ font-weight:700; color:var(--navy-deep); margin:0; }
+.contact-desc{ font-size:.95rem; color:var(--muted); margin:0 0 .25rem; }
+
+/* Social buttons */
+.contact-actions{ display:flex; gap:.6rem; margin-top:.4rem; flex-wrap:wrap; justify-content:center; }
+.social-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:.6rem;
+    padding:.55rem .8rem;
+    border-radius:10px;
+    color:#fff;
+    font-weight:700;
+    text-decoration:none;
+    box-shadow:0 8px 24px rgba(3,19,59,0.12);
+    transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+.social-btn svg{ flex:0 0 auto; display:block; }
+.whatsapp-btn{ background: linear-gradient(90deg,#25D366,#1DA851); }
+.insta-btn{ background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+
+/* hover/tap */
+.social-btn:hover{ transform:translateY(-4px); box-shadow:0 18px 40px rgba(3,19,59,0.18); opacity:0.98; }
+
+/* Mobile: empilha form acima do bloco de contato */
+@media (max-width:880px){
+    .contact-panel{ flex-direction:column; padding:1rem; }
+    .contact-info{ flex:1 1 auto; order:2; }
+    .contact-form{ order:1; }
+}
